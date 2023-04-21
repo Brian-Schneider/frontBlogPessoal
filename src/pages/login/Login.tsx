@@ -62,7 +62,7 @@ function Login() {
                             </Box>
                         </form>
                         <Typography marginTop={2} align="center" variant="body1">
-                            Ainda não tem conta? <Link to="/cadastrarUsuario" className="linkLogin">Cadastre-se aqui!</Link>
+                            Ainda não tem conta? <Link to="/usuarios/cadastrar" className="linkLogin">Cadastre-se aqui!</Link>
                         </Typography>
                     </Grid>
                 </Box>

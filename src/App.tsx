@@ -7,20 +7,22 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CadastroUsuario from './pages/cadastroUsuario/CadastroUsuario';
 import ListaTemas from './components/temas/listaTemas/ListaTemas';
 import ListaPostagens from './components/postagens/listaPostagens/ListaPostagens';
+import CadastroTemas from './components/temas/cadastroTemas/CadastroTemas';
 
 function App() {
   return (
 
     <BrowserRouter>
       <Navbar />
-      <div>
+      <div style={{minHeight: "100vh"}}>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/cadastrarUsuario" element={<CadastroUsuario />} />
+          <Route path="/usuarios/cadastrar" element={<CadastroUsuario />} />
           <Route path="/temas" element={<ListaTemas />} />
           <Route path="/postagens" element={<ListaPostagens />} />
+          <Route path="/cadastrarTema" element={<CadastroTemas />} />
         </Routes>
       </div>
       <Footer />

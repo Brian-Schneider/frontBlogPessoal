@@ -1,21 +1,54 @@
 import { Box, Card, CardContent, Typography, CardActions, Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Postagem } from '../../../models/Postagem'
+import { useNavigate } from 'react-router-dom'
+import useLocalStorage from 'react-use-localstorage'
+import { getAll } from '../../../service/Service'
 
 function ListaPostagens() {
+
+    const history = useNavigate()
+
+    const [postagens, setPostagens] = useState<Postagem[]>([])
+    const [token, setToken] = useLocalStorage("token")
+
+    async function getAllPostagens() {
+        await getAll("/postagens", setPostagens, {
+            headers: {
+                Authorization: token
+            }
+        })        
+    }
+
+    useEffect(() => {
+        getAllPostagens()
+    }, [postagens.length])
+
+    useEffect(() => {
+        if(token === "") {
+            alert("Sem token, não, né?")
+            history("/login")
+        }
+    })
+
   return (
     <>
-        <Box m={4}>
+        {postagens.map((postagem) => (
+            <Box m={4}>
             <Card>
                 <CardContent>
 
                     <Typography  color="text.secondary" gutterBottom>
-                        Título da postagem:
+                        {postagem.titulo}
                     </Typography>
                     <Typography variant="h5" component="div">
-                        texto da postagem
+                        {postagem.texto}
                     </Typography>
                     <Typography variant="body1" component="p">
-                        Tema da postagem
+                        {postagem.tema.descricao}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        Data da Postagem: {postagem.data}
                     </Typography>
                     
                 </CardContent>
@@ -25,6 +58,7 @@ function ListaPostagens() {
                 </CardActions>
             </Card>
         </Box>
+        ))}
     </>
   )
 }
